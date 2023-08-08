@@ -6,6 +6,7 @@ import passport from "passport";
 import initializePassport from "./config/passport.config.js";
 import exphbs from "express-handlebars";
 import path from "path";
+import config from "./config/configVar.js";
 
 import PlayersRoutes from "./routes/players.routes.js";
 import UsersRoutes from "./routes/users.routes.js";
@@ -38,6 +39,8 @@ app.use(cors());
 app.use("/static", express.static(`${__dirname}/public`));
 initializePassport();
 app.use(passport.initialize());
+
+console.log(config.PORT);
 
 // Configurar Handlebars como el motor de plantillas
 const currentFilePath = fileURLToPath(import.meta.url);

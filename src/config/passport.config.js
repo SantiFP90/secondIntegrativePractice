@@ -4,6 +4,9 @@ import userModel from "../schemas/users.schema.js";
 import { default as token } from "jsonwebtoken";
 import local from "passport-local";
 import { createHash, validatePassword } from "../utils/utils.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const JWTStrategy = jwt.Strategy;
 const ExtractJWT = jwt.ExtractJwt;
