@@ -17,10 +17,16 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 
 const app = express();
-const PORT = 8080;
+const PORT = config.PORT;
 
-const mongoDBURL =
-  "mongodb+srv://SantiFP90:tupac123@santifp90.vuaufnp.mongodb.net/ecommerceTwo?retryWrites=true&w=majority";
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use("/static", express.static(`${__dirname}/public`));
+initializePassport();
+app.use(passport.initialize());
+
+const mongoDBURL = config.DB_MONGO;
 mongoose
   .connect(mongoDBURL, {
     useNewUrlParser: true,
@@ -32,15 +38,6 @@ mongoose
   .catch((error) => {
     console.error("Error al conectar a MongoDB:", error);
   });
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use("/static", express.static(`${__dirname}/public`));
-initializePassport();
-app.use(passport.initialize());
-
-console.log(config.PORT);
 
 // Configurar Handlebars como el motor de plantillas
 const currentFilePath = fileURLToPath(import.meta.url);
